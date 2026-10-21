@@ -108,3 +108,15 @@ body.open .gift{animation:pop .5s both;animation-delay:calc(var(--i)*90ms)}
 .themeswitch{position:fixed;top:calc(.7rem + env(safe-area-inset-top,0px));right:.8rem;z-index:40;box-shadow:var(--shadow)}
 .bkdate{font:400 1.5rem var(--f-script);color:#ff5f9e;margin-bottom:.6rem}
 .bkmsg{font-size:.92rem;line-height:1.55}
+.tools{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.tools .mini{margin:0}
+.sheet.wide{max-width:40rem}
+.polas{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1.1rem;margin-top:1rem}
+.polas .flip{width:100%;height:auto;aspect-ratio:4/5;margin:0}
+.polas .flip:nth-child(odd){transform:rotate(-2deg)}
+.polas .flip:nth-child(even){transform:rotate(2deg)}
+.polas .ff{padding:.5rem}.polas .ff.bk{padding:.6rem}
+.polas .pic{height:auto;flex:1;min-height:0}.polas .pic .mono{font-size:2.6rem}
+.polas .cap{font-size:.8rem;margin-top:.35rem}
+.polas .bkdate{font-size:1.05rem;margin-bottom:.3rem}
+.polas .bkmsg{font-size:.72rem;line-height:1.4}

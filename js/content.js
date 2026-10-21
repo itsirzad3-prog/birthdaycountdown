@@ -4,6 +4,10 @@ const CONTENT = {
   // (If you change the date, also update the "24 October 2026" label in index.html)
   birthday: [2026, 9, 24, 0, 0, 0],
 
+  // false = the 4 surprise cards stay hidden. Set to true when you are ready to show them.
+  // (The preview link  .../full  always shows them.)
+  showSurprises: false,
+
   letter: {
     paragraphs: [
       "Happy 27th Birthday, Sherena! 🎂✨",
@@ -13,10 +17,15 @@ const CONTENT = {
     signoff: "— With all my love 💕"
   },
 
-  flip: {
-    date: "24.10.2026 💕",
-    message: "Here’s to 27 years of being effortlessly cute, kind, and unforgettable. Never stop smiling, Sherena! ✨🌸"
-  },
+  // 6 polaroids — upload the photos as polaroid1.jpeg … polaroid6.jpeg next to index.html
+  polaroids: [
+    { img: "polaroid1.jpeg", date: "24.10.2026 💕", message: "Here’s to 27 years of being effortlessly cute, kind, and unforgettable. Never stop smiling, Sherena! ✨🌸" },
+    { img: "polaroid2.jpeg", date: "Memory #2 🌷", message: "Every moment with you becomes a favourite one 💕" },
+    { img: "polaroid3.jpeg", date: "Memory #3 🎀", message: "Cute, kind, and unforgettable — that’s you ✨" },
+    { img: "polaroid4.jpeg", date: "Memory #4 🌸", message: "Your smile makes every photo better 🥰" },
+    { img: "polaroid5.jpeg", date: "Memory #5 ✨", message: "Here’s to even more memories together 💖" },
+    { img: "polaroid6.jpeg", date: "Chapter 27 🎂", message: "Happy 27th, Sherena — your best chapter starts now! 🎉" }
+  ],
 
   reasons: [
 "Your smile brightens up the entire room effortlessly ✨","You have the warmest, kindest heart 💖","Every moment with you feels cozy and fun 🌸","Your laugh is genuinely contagious 🥰","You make 27 look absolutely stunning 👑","You always know how to cheer people up 🌈","Your style and aesthetic are always 10/10 🎀","You care so deeply about the people you love 💕","You turn ordinary days into special memories 📸","Your positive energy is unmatched ⚡","You are strong, resilient, and inspiring 🌷","You deserve all the cake and sweet treats today 🎂","You bring peace and happiness wherever you go 🕊️","Your kindness never goes unnoticed 🌟","You’re the definition of beauty inside and out 💎","Even small chats with you are the highlight of the day ☕","You have the cutest reactions to surprises 🎁","You keep growing wiser and more amazing every year 📖","You make everyone around you feel valued 🤗","Your dreams and ambitions are so inspiring 🚀","You are truly one in a million, Sherena 🌙","May your 27th year bring endless adventures ✈️","May all your secret birthday wishes come true 🌠","May you always be surrounded by love and laughter 🥂","Thank you for being your wonderful, authentic self 🌺","Chapter 27 is going to be your luckiest chapter yet 🍀","Happy 27th Birthday, Sherena — you are so loved! 🎉💖"

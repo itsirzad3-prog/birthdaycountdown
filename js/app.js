@@ -1,7 +1,11 @@
 /* Countdown, popups, confetti, photo fallback. Edit texts in js/content.js */
 const $=id=>document.getElementById(id);
 const REAL=new Date(...CONTENT.birthday).getTime(), WINDOW=30*864e5;
-let preview=false, override=null, celebrated=false, tapped=false;
+// Modes: normal link = live countdown. Add /full (or #full) = surprises unlocked preview. #rehearse = 10-second finale test.
+const MODE=new URLSearchParams(location.search).get('mode')||location.hash.slice(1)||null;
+let preview=MODE==='full', override=MODE==='rehearse'?Date.now()+14000:null, celebrated=false, tapped=false;
+$('hub').hidden=!(CONTENT.showSurprises||MODE==='full');
+$('modeNote').hidden=MODE!=='full';
 let heart=null;try{heart=confetti.shapeFromText({text:'🩷',scalar:2})}catch(e){}
 
 function pop(o){try{window.confetti&&confetti(Object.assign({particleCount:90,spread:75,origin:{y:.65},colors:SKINS[skin].confetti,shapes:heart?[heart,'circle']:['circle','square'],scalar:heart?2:1},o||{}))}catch(e){}}
@@ -27,12 +31,6 @@ function render(){
   setNum('d',p(Math.floor(diff/864e5)));setNum('h',p(Math.floor(diff%864e5/36e5)));
   setNum('m',p(Math.floor(diff%36e5/6e4)));setNum('s',p(Math.floor(diff%6e4/1e3)));
   $('bar').firstElementChild.style.width=(1-Math.min(diff,WINDOW)/WINDOW)*100+'%';
-}
-function setMode(m){
-  preview=m===1;override=m===2?Date.now()+14000:null;
-  [0,1,2].forEach(i=>$('b'+i).classList.toggle('on',i===m));
-  if(m!==1)stopMusic();
-  celebrated=false;render();
 }
 let tt;function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 
@@ -75,7 +73,7 @@ async function fallback(){
     if(!r.ok||!window.heic2any)throw 0;
     const b=await heic2any({blob:await r.blob(),toType:'image/jpeg',quality:.85});
     const u=URL.createObjectURL(b);document.querySelectorAll('.her-photo').forEach(i=>i.src=u);
-  }catch(e){document.querySelectorAll('.ph').forEach(p=>p.classList.add('nophoto'))}
+  }catch(e){document.querySelectorAll('.her-photo').forEach(i=>i.parentElement.classList.add('nophoto'))}
 }
 document.querySelectorAll('.her-photo').forEach(i=>{i.onerror=fallback;if(i.complete&&i.naturalWidth===0)fallback()});
 
@@ -87,7 +85,8 @@ window.addEventListener('load',()=>setTimeout(pop,500));
 function fillContent(){
   const L=CONTENT.letter;
   $('letterBody').innerHTML=L.paragraphs.map((t,i)=>'<p>'+(i===0?'<strong>'+t+'</strong>':t)+'</p>').join('')+'<p class="sign">'+L.signoff+'</p>';
-  $('flipDate').textContent=CONTENT.flip.date;
-  $('flipMsg').textContent='\u201c'+CONTENT.flip.message+'\u201d';
+  $('polas').innerHTML=CONTENT.polaroids.map(p=>'<div class="flip"><div class="fi"><div class="ff"><div class="ph pic"><img class="pimg" src="'+p.img+'" alt=""><div class="mono">S</div></div><div class="cap">Tap to flip ↺</div></div><div class="ff bk"><p class="bkdate">'+p.date+'</p><p class="bkmsg">\u201c'+p.message+'\u201d</p></div></div></div>').join('');
+  document.querySelectorAll('.pimg').forEach(i=>{i.onerror=()=>i.parentElement.classList.add('nophoto')});
+  $('polas').onclick=e=>{const f=e.target.closest('.fi');if(f)f.classList.toggle('on')};
 }
 fillContent();
