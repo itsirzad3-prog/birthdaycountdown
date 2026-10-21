@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Disabled user zooming on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Sherena's 27th Birthday Countdown ✨</title>
   <!-- Cute Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <!-- Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- HEIC to JPEG Converter Library (in case photo is .HEIC) -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
       --card-bg: rgba(255, 255, 255, 0.78);
       --primary-pink: #ff6b9d;
       --secondary-pink: #ff8fb1;
@@ -22,6 +24,8 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      /* Prevents double-tap to zoom on mobile */
+      touch-action: manipulation;
     }
 
     body {
@@ -35,6 +39,7 @@
       padding: 20px;
       overflow-x: hidden;
       position: relative;
+      -webkit-text-size-adjust: 100%;
     }
 
     /* Floating cute background decorations */
@@ -66,7 +71,6 @@
       text-align: center;
       position: relative;
       z-index: 1;
-      transition: transform 0.3s ease;
     }
 
     .badge {
@@ -99,7 +103,7 @@
       font-weight: 600;
     }
 
-    /* Polaroid Photo Frame */
+    /* Polaroid Photo Frame (Zoom disabled) */
     .polaroid-wrapper {
       display: flex;
       justify-content: center;
@@ -111,15 +115,10 @@
       padding: 14px 14px 36px 14px;
       border-radius: 18px;
       box-shadow: 0 12px 28px rgba(92, 75, 81, 0.15);
-      transform: rotate(-2.5deg);
-      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: rotate(-2deg);
       max-width: 260px;
       width: 100%;
       position: relative;
-    }
-
-    .polaroid:hover {
-      transform: rotate(0deg) scale(1.04);
     }
 
     /* Cute Washi Tape on top of Polaroid */
@@ -143,6 +142,8 @@
       border-radius: 10px;
       display: block;
       background-color: #fff0f5;
+      pointer-events: none; /* Prevents image dragging/zooming */
+      user-select: none;
     }
 
     .polaroid-caption {
@@ -167,11 +168,6 @@
       border-radius: 20px;
       padding: 16px 8px;
       box-shadow: 0 8px 18px rgba(255, 107, 157, 0.1);
-      transition: transform 0.2s ease;
-    }
-
-    .time-box:hover {
-      transform: translateY(-4px);
     }
 
     .number {
@@ -201,12 +197,6 @@
       padding: 16px;
       border-radius: 18px;
       margin-bottom: 22px;
-      animation: popIn 0.5s ease;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
     }
 
     .btn-wish {
@@ -220,16 +210,12 @@
       border-radius: 999px;
       cursor: pointer;
       box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
-      transition: all 0.25s ease;
+      transition: opacity 0.2s ease, box-shadow 0.2s ease;
     }
 
     .btn-wish:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 14px 24px rgba(255, 107, 157, 0.4);
-    }
-
-    .btn-wish:active {
-      transform: translateY(0px);
+      opacity: 0.92;
+      box-shadow: 0 12px 22px rgba(255, 107, 157, 0.38);
     }
 
     .footer-note {
@@ -264,8 +250,7 @@
     <!-- Cute Polaroid Picture -->
     <div class="polaroid-wrapper">
       <div class="polaroid">
-        <!-- Ensure IMG_0147.jpeg is in the same folder as index.html -->
-        <img src="IMG_0147.jpeg" alt="Sherena" onerror="this.src='https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80'" />
+        <img id="birthdayPhoto" src="IMG_0147.jpeg" alt="Sherena" />
         <div class="polaroid-caption">Birthday Girl 💕</div>
       </div>
     </div>
@@ -305,6 +290,14 @@
   </main>
 
   <script>
+    // Block pinch-to-zoom and multi-touch gestures on iOS Safari
+    document.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+    });
+    document.addEventListener('dblclick', function (e) {
+      e.preventDefault();
+    }, { passive: false });
+
     // Target Date: 24 October 2026 at 00:00:00 (Local Time)
     const targetDate = new Date("2026-10-24T00:00:00").getTime();
 
@@ -340,6 +333,21 @@
         colors: ['#ff6b9d', '#ffc2d1', '#b5fffc', '#fde2e4', '#cdb4db']
       });
     }
+
+    // Automatic fallback if image is uploaded as IMG_0147.HEIC
+    const imgElement = document.getElementById("birthdayPhoto");
+    imgElement.onerror = async function () {
+      try {
+        let response = await fetch("IMG_0147.HEIC");
+        if (!response.ok) response = await fetch("IMG_0147.heic");
+        if (!response.ok) throw new Error("HEIC not found");
+        const blob = await response.blob();
+        const convertedBlob = await heic2any({ blob: blob, toType: "image/jpeg", quality: 0.85 });
+        imgElement.src = URL.createObjectURL(convertedBlob);
+      } catch (err) {
+        imgElement.src = "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80";
+      }
+    };
 
     // Initial run & interval
     updateCountdown();
