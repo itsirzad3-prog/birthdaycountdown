@@ -1,0 +1,45 @@
+/* ✨ DREAMY skin — soft rose + lavender aurora, serif type. Active when <html data-skin="dreamy"> */
+:root[data-skin="dreamy"]{--bg:#fff3f7;--pink:#e8467c;--pink2:#ff8fb1;--pink3:#fbdbe7;--pink4:#fff8fb;--ink:#4a2f3d;--mute:#8a6b7a;--card:#fff;--dot:transparent;--edge:transparent;--shadow:0 22px 50px -20px rgba(232,70,124,.45);--lav:#8a63d2;--glass:rgba(255,255,255,.62);--g1:#fff3f7;--g2:#ffe3ee;--g3:#efe5ff;--f-ui:'Fraunces',serif;--f-script:'Fraunces',serif;--f-body:'Nunito',system-ui,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root[data-skin="dreamy"]:not([data-theme="light"]){--bg:#1c1120;--pink:#ff7aa8;--pink2:#ff9fc0;--pink3:#3d2142;--pink4:#2b1a34;--ink:#fbe9f1;--mute:#c4a4b5;--card:#2b1a34;--shadow:0 22px 50px -20px rgba(0,0,0,.7);--lav:#b79cf0;--glass:rgba(42,24,50,.6);--g1:#1c1120;--g2:#2a1630;--g3:#1b1735;color-scheme:dark}}
+:root[data-skin="dreamy"][data-theme="dark"]{--bg:#1c1120;--pink:#ff7aa8;--pink2:#ff9fc0;--pink3:#3d2142;--pink4:#2b1a34;--ink:#fbe9f1;--mute:#c4a4b5;--card:#2b1a34;--shadow:0 22px 50px -20px rgba(0,0,0,.7);--lav:#b79cf0;--glass:rgba(42,24,50,.6);--g1:#1c1120;--g2:#2a1630;--g3:#1b1735;color-scheme:dark}
+
+/* Aurora background instead of polka dots */
+[data-skin=dreamy] body{background-image:linear-gradient(160deg,var(--g1),var(--g2) 55%,var(--g3));background-size:auto;background-position:0 0}
+[data-skin=dreamy] body::before,[data-skin=dreamy] body::after{content:"";position:fixed;width:60vmax;height:60vmax;border-radius:50%;filter:blur(70px);opacity:.45;pointer-events:none;z-index:0;animation:drift 18s ease-in-out infinite alternate}
+[data-skin=dreamy] body::before{top:-25vmax;left:-20vmax;background:radial-gradient(circle,var(--pink2),transparent 65%)}
+[data-skin=dreamy] body::after{bottom:-28vmax;right:-22vmax;background:radial-gradient(circle,var(--lav),transparent 65%);animation-delay:-9s}
+@keyframes drift{to{transform:translate(6vmax,4vmax) scale(1.1)}}
+
+/* Italic serif for the "script" spots */
+[data-skin=dreamy] :is(.name,.eyebrow,.banner h2,.sheet h3,.rc .n,.sign,.cap,.bkdate,.ph .mono,#final p){font-style:italic;font-weight:700}
+[data-skin=dreamy] .name{font-size:clamp(3rem,11vw,4rem);line-height:1.15;background:linear-gradient(90deg,var(--pink),var(--lav));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+
+/* Arch photo frame */
+[data-skin=dreamy] .photo{aspect-ratio:4/5;width:min(52vw,12.5rem)}
+[data-skin=dreamy] .photo::before{inset:-.75rem;border:2px dashed var(--pink2);border-radius:112px 112px 38px 38px;animation:none;transform:rotate(4deg);opacity:.7}
+[data-skin=dreamy] .circle{border-width:6px;border-radius:100px 100px 28px 28px;animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+[data-skin=dreamy] .bow{display:none}
+
+/* Glass cards, flat tiles */
+[data-skin=dreamy] .panel{background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--pink3);border-radius:1.8rem}
+[data-skin=dreamy] .tile{background:var(--card);border-width:1px;box-shadow:none;border-radius:1.1rem}
+[data-skin=dreamy] .bar i{background:linear-gradient(90deg,var(--pink2),var(--lav))}
+[data-skin=dreamy] .bar i::after{display:none}
+[data-skin=dreamy] .banner h2{color:var(--lav)}
+
+/* Surprise cards + buttons */
+[data-skin=dreamy] .gift{border-width:1px;border-radius:1.5rem;box-shadow:0 12px 26px -16px var(--pink)}
+[data-skin=dreamy] .gift:active{transform:scale(.96);box-shadow:0 12px 26px -16px var(--pink)}
+[data-skin=dreamy] .ic{width:auto;height:auto;background:none;font-size:2.1rem}
+[data-skin=dreamy] .btn{background:linear-gradient(135deg,var(--pink),#ff8e53);box-shadow:0 12px 24px -10px var(--pink)}
+[data-skin=dreamy] .btn:active{transform:scale(.97);box-shadow:0 12px 24px -10px var(--pink)}
+[data-skin=dreamy] :is(.mini,.seg){border-width:1px}
+[data-skin=dreamy] .seg button.on{background:var(--pink)}
+
+/* Popups */
+[data-skin=dreamy] .sheet{border:0;border-radius:30px 30px 0 0}
+@media (min-width:561px){[data-skin=dreamy] .sheet{border-radius:30px}}
+[data-skin=dreamy] .rc{background:linear-gradient(135deg,var(--g1),var(--g3));border-width:1px}
+[data-skin=dreamy] .paper{border-width:1px}
+[data-skin=dreamy] #final{background:radial-gradient(circle,var(--card) 20%,var(--g2))}
