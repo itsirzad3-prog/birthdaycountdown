@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sherena's 27th Birthday Countdown ✨</title>
+  <!-- Cute Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
+      --card-bg: rgba(255, 255, 255, 0.78);
+      --primary-pink: #ff6b9d;
+      --secondary-pink: #ff8fb1;
+      --text-dark: #5c4b51;
+      --accent-purple: #9b72cf;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #e1bee7 100%);
+      font-family: 'Quicksand', sans-serif;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating cute background decorations */
+    .floating-decor {
+      position: fixed;
+      font-size: 1.8rem;
+      opacity: 0.55;
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(8deg); }
+    }
+
+    /* Main Glassmorphism Card */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      border-radius: 32px;
+      box-shadow: 0 18px 40px rgba(255, 107, 157, 0.22);
+      max-width: 580px;
+      width: 100%;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ffe0ec;
+      color: var(--primary-pink);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 10px rgba(255, 107, 157, 0.12);
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.7rem;
+      color: var(--primary-pink);
+      margin-bottom: 6px;
+      text-shadow: 2px 2px 0px #ffffff;
+      font-weight: 400;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+      color: #7d666e;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    /* Polaroid Photo Frame */
+    .polaroid-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .polaroid {
+      background: #ffffff;
+      padding: 14px 14px 36px 14px;
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(92, 75, 81, 0.15);
+      transform: rotate(-2.5deg);
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-width: 260px;
+      width: 100%;
+      position: relative;
+    }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.04);
+    }
+
+    /* Cute Washi Tape on top of Polaroid */
+    .polaroid::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 90px;
+      height: 26px;
+      background: rgba(255, 182, 193, 0.65);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      background-color: #fff0f5;
+    }
+
+    .polaroid-caption {
+      font-family: 'Pacifico', cursive;
+      color: var(--primary-pink);
+      font-size: 1.2rem;
+      margin-top: 12px;
+      margin-bottom: -18px;
+    }
+
+    /* Countdown Boxes */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .time-box {
+      background: #ffffff;
+      border: 2px solid #ffd6e5;
+      border-radius: 20px;
+      padding: 16px 8px;
+      box-shadow: 0 8px 18px rgba(255, 107, 157, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .time-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .number {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--primary-pink);
+      line-height: 1.1;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #9e858e;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Birthday Message & Button */
+    .celebration-message {
+      display: none;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent-purple);
+      background: #f3e5f5;
+      padding: 16px;
+      border-radius: 18px;
+      margin-bottom: 22px;
+      animation: popIn 0.5s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .btn-wish {
+      background: linear-gradient(135deg, #ff6b9d 0%, #ff8e53 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .btn-wish:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 24px rgba(255, 107, 157, 0.4);
+    }
+
+    .btn-wish:active {
+      transform: translateY(0px);
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      font-size: 0.85rem;
+      color: #9e858e;
+      font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2.1rem; }
+      .countdown { grid-template-columns: repeat(2, 1fr); }
+      .card { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Cute Icons -->
+  <div class="floating-decor" style="top: 8%; left: 10%; animation-delay: 0s;">🌸</div>
+  <div class="floating-decor" style="top: 15%; right: 12%; animation-delay: 1.2s;">✨</div>
+  <div class="floating-decor" style="bottom: 12%; left: 14%; animation-delay: 2.5s;">🎂</div>
+  <div class="floating-decor" style="bottom: 18%; right: 10%; animation-delay: 0.8s;">🎀</div>
+  <div class="floating-decor" style="top: 50%; left: 5%; animation-delay: 1.8s;">💖</div>
+  <div class="floating-decor" style="top: 45%; right: 6%; animation-delay: 3s;">🌷</div>
+
+  <main class="card">
+    <div class="badge">✨ Chapter 27 Loading ✨</div>
+    <h1>Sherena's Birthday</h1>
+    <p class="subtitle">Counting down to 24 October 2026 🎂💖</p>
+
+    <!-- Cute Polaroid Picture -->
+    <div class="polaroid-wrapper">
+      <div class="polaroid">
+        <!-- Ensure IMG_0147.jpeg is in the same folder as index.html -->
+        <img src="IMG_0147.jpeg" alt="Sherena" onerror="this.src='https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80'" />
+        <div class="polaroid-caption">Birthday Girl 💕</div>
+      </div>
+    </div>
+
+    <!-- Shown when countdown hits zero -->
+    <div id="birthdayBanner" class="celebration-message">
+      🎉 Happy 27th Birthday, Sherena!! 🥳💖✨
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown" id="countdownBox">
+      <div class="time-box">
+        <div class="number" id="days">00</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="hours">00</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="minutes">00</div>
+        <div class="label">Mins</div>
+      </div>
+      <div class="time-box">
+        <div class="number" id="seconds">00</div>
+        <div class="label">Secs</div>
+      </div>
+    </div>
+
+    <button class="btn-wish" onclick="shootConfetti()">
+      Shower Birthday Confetti 🎉
+    </button>
+
+    <div class="footer-note">
+      Made with love for Sherena's 27th ✨
+    </div>
+  </main>
+
+  <script>
+    // Target Date: 24 October 2026 at 00:00:00 (Local Time)
+    const targetDate = new Date("2026-10-24T00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        document.getElementById("birthdayBanner").style.display = "block";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = String(days).padStart(2, "0");
+      document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+    }
+
+    function shootConfetti() {
+      confetti({
+        particleCount: 90,
+        spread: 75,
+        origin: { y: 0.65 },
+        colors: ['#ff6b9d', '#ffc2d1', '#b5fffc', '#fde2e4', '#cdb4db']
+      });
+    }
+
+    // Initial run & interval
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Gentle confetti burst on page load
+    window.addEventListener('load', () => {
+      setTimeout(shootConfetti, 500);
+    });
+  </script>
+</body>
+</html>
