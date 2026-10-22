@@ -11,7 +11,7 @@ const CONTENT = {
   letter: {
     paragraphs: [
       "Happy 27th Birthday, Sherena! 🎂✨",
-      "Welcome to Chapter 27! I hope you loved dinner tonight. May this new year of your life bring you endless laughter, cozy moments, answered prayers, and all the happiness your heart can hold.",
+      "Welcome to Chapter 27 Sayang!! Sayang is old now hihi. I hope sayang able to continue enjoying your life to the fullest.",
       "Thank you for always shining so brightly and making every moment warmer just by being yourself. Here’s to making your 27th year your best and most magical chapter yet! 💖🌷"
     ],
     signoff: "— With all my love 💕"
@@ -19,12 +19,12 @@ const CONTENT = {
 
   // 6 polaroids — upload the photos as polaroid1.jpeg … polaroid6.jpeg next to index.html
   polaroids: [
-    { img: "polaroid1.jpeg", date: "24.10.2026 💕", message: "Here’s to 27 years of being effortlessly cute, kind, and unforgettable. Never stop smiling, Sherena! ✨🌸" },
-    { img: "polaroid2.jpeg", date: "Memory #2 🌷", message: "Every moment with you becomes a favourite one 💕" },
-    { img: "polaroid3.jpeg", date: "Memory #3 🎀", message: "Cute, kind, and unforgettable — that’s you ✨" },
-    { img: "polaroid4.jpeg", date: "Memory #4 🌸", message: "Your smile makes every photo better 🥰" },
-    { img: "polaroid5.jpeg", date: "Memory #5 ✨", message: "Here’s to even more memories together 💖" },
-    { img: "polaroid6.jpeg", date: "Chapter 27 🎂", message: "Happy 27th, Sherena — your best chapter starts now! 🎉" }
+    { img: "polaroid1.jpeg", date: "No 1 top pic i took 💕", message: "Engko pulak cantik, memang gw cannot la" },
+    { img: "polaroid2.jpeg", date: "I took this hehe 🌷", message: "mak datok duyong nait pante" },
+    { img: "polaroid3.jpeg", date: "Us together! 🎀", message: "Cute bissss" },
+    { img: "polaroid4.jpeg", date: "Love our breakfast partner 🌸", message: "I WANT MORE BREAKFAST W YOU!" },
+    { img: "polaroid5.jpeg", date: "My current wallpaper ✨", message: "First date as a couple" },
+    { img: "polaroid6.jpeg", date: "Chapter 27 🎂", message: "This is my fav pic. I like this a lot" }
   ],
 
   reasons: [
