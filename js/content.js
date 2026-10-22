@@ -10,7 +10,7 @@ const CONTENT = {
 
   letter: {
     paragraphs: [
-      "Happy 27th Birthday, Sherena! 🎂✨",
+      "Happy 27th Birthday, Sayang! 🎂✨",
       "Welcome to Chapter 27 Sayang!! Sayang is old now hihi. I hope sayang able to continue enjoying your life to the fullest.",
       "Thank you for always shining so brightly and making every moment warmer just by being yourself. Here’s to making your 27th year your best and most magical chapter yet! 💖🌷"
     ],
