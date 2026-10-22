@@ -22,7 +22,7 @@ function render(){
   $('final').classList.toggle('on',fin);
   if(fin){const n=String(Math.ceil(diff/1000)),e=$('fn');if(e.textContent!==n){e.textContent=n;e.classList.remove('zoom');void e.offsetWidth;e.classList.add('zoom')}}
   if(open){
-    $('bar').firstElementChild.style.width='100%';
+    $('bar').style.width='100%';
     if(!celebrated){celebrated=true;done?party():pop()}
     return;
   }
@@ -30,7 +30,7 @@ function render(){
   const p=n=>String(n).padStart(2,'0');
   setNum('d',p(Math.floor(diff/864e5)));setNum('h',p(Math.floor(diff%864e5/36e5)));
   setNum('m',p(Math.floor(diff%36e5/6e4)));setNum('s',p(Math.floor(diff%6e4/1e3)));
-  $('bar').firstElementChild.style.width=(1-Math.min(diff,WINDOW)/WINDOW)*100+'%';
+  $('bar').style.width=(1-Math.min(diff,WINDOW)/WINDOW)*100+'%';
 }
 let tt;function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 
