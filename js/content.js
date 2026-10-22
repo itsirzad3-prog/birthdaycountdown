@@ -14,7 +14,7 @@ const CONTENT = {
       "Welcome to Chapter 27 Sayang!! Sayang is old now hihi. I hope sayang able to continue enjoying your life to the fullest.",
       "Thank you for always shining so brightly and making every moment warmer just by being yourself. Here’s to making your 27th year your best and most magical chapter yet! 💖🌷"
     ],
-    signoff: "— With all my love 💕"
+    signoff: "— Shahmeerqeen 💕"
   },
 
   // 6 polaroids — upload the photos as polaroid1.jpeg … polaroid6.jpeg next to index.html
